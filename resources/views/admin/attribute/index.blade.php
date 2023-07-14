@@ -43,14 +43,20 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" id="form-category" >
+                    <form method="post"  id="form-attribute">
                         @csrf
                         <input type="hidden" value="" name="id" id="id" class="id">
                         <div class="mb-3">
                             <label for="name" class="form-label">Tên thuộc tính</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Nhập tên thuộc tính">
+                            <input type="text" class="form-control name" id="name" name="name"
+                                   placeholder="Nhập tên thuộc tính">
                         </div>
-
+                        <div class="mb-3">
+                            <label for="values" class="form-label">Giá trị</label>
+                            <br>
+                            <select class="form-control values"  id="values" multiple="multiple" name="values[]">
+                            </select>
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Đóng</button>
@@ -60,4 +66,5 @@
             </div>
         </div>
     </div>
+
 @endsection
