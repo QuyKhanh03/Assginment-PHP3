@@ -24,5 +24,13 @@ Route::prefix('admin')->group(function (){
     Route::controller(AttributeController::class)->group(function (){
         Route::get('get-attributes','getAttribute');
         Route::get('attributes','index')->name('attributes.index');
+        Route::post('add-attribute','store')->name('attributes.store');
+        Route::get('edit-attribute/{id}','edit')->name('attributes.edit');
+        Route::post('update-attribute/{id}','update')->name('attributes.update');
+        Route::get('delete-attribute/{id}','destroy')->name('attributes.destroy');
     });
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
