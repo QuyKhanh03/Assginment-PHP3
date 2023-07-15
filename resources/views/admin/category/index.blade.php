@@ -10,12 +10,12 @@
                     <div class="card-header row">
                         <div class="col"><h4>Danh mục sản phẩm</h4></div>
                         <div class="col">
-                            <button class="btn btn-primary btn-sm btn-add float-end">Thêm mới</button>
+                            <a href="{{ route('category.create') }}"><button class="btn btn-primary btn-sm btn-add float-end">Thêm mới</button></a>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="table-reponsive">
-                            <table id="table_category" class="display" style="min-width: 845px">
+                            <table id="example" class="display" style="min-width: 845px">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -27,18 +27,40 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                </tbody>
-                                <tfoot>
-                                @foreach ($companies as $company)
+                                @foreach ($data as $category)
                                     <tr>
-                                        <th>{{ $company->id }}</th>
-                                        <th>{{ $company->name }}</th>
-                                        <th>{{ $company->slug }}</th>
-                                        <th>Ngày tạo</th>
-                                        <th>Ngày cập nhật</th>
-                                        <th>Hành động</th>
+                                        <th>{{ $category->id }}</th>
+                                        <th>{{ $category->name }}</th>
+                                        <th>{{ $category->slug }}</th>
+
+                                        <th>{{ date('d-m-Y',strtotime($category->created_at)) }}</th>
+
+                                        <th>{{ date('d-m-Y',strtotime($category->updated_at)) }}</th>
+                                        <th>
+                                            <a class="btn btn-success" href="{{ route('category.edit', $category->id) }}">Sửa</a>
+                                            <button class="btn btn-danger"
+                                                    onclick="document.getElementById('category-{{ $category->id }}').submit();">
+                                                Xóa
+                                            </button>
+                                            <form action="{{ route('category.destroy', $category) }}"
+                                                  id="category-{{ $category->id }}"
+                                                  method="post" >
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
+                                        </th>
                                     </tr>
                                 @endforeach
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tên danh mục</th>
+                                    <th>Slug</th>
+                                    <th>Ngày tạo</th>
+                                    <th>Ngày cập nhật</th>
+                                    <th>Hành động</th>
+                                </tr>
                                 </tfoot>
                             </table>
                         </div>

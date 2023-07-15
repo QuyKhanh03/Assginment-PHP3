@@ -1,48 +1,33 @@
 @extends('admin.layout.master')
 @section('content')
-    <div class="container mt-2">
-        <div class="row">
-            <div class="col-lg-12 margin-tb">
-                <div class="pull-left">
-                    <h2>Edit Category</h2>
-                </div>
-                <div class="pull-right">
-                    <a class="btn btn-primary" href="{{ route('category.index') }}" enctype="multipart/form-data">
-                        Back</a>
-                </div>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Cập nhật danh mục</h4>
+        </div>
+        <div class="card-body">
+            <div class="basic-form">
+                <form action="{{ route('category.update', $category->id) }}" method="post" >
+                    @csrf
+                    @method('PUT')
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Tên danh mục::</label>
+                        <input type="text" class="form-control input-default " id="name" placeholder="Tên danh mục:" name="name" value="{{ $category->name }}">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </form>
             </div>
         </div>
-        @if(session('status'))
-            <div class="alert alert-success mb-1 mt-1">
-                {{ session('status') }}
-            </div>
-        @endif
-        <form action="{{ route('category.update',$company->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>Category Name:</strong>
-                        <input type="text" name="name" value="{{ $company->name }}" class="form-control"
-                               placeholder="Category name">
-                        @error('name')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>Category Email:</strong>
-                        <input type="text" name="slug" class="form-control" placeholder="Category Email"
-                               value="{{ $company->slug }}">
-                        @error('slug')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary ml-3">Submit</button>
-            </div>
-        </form>
     </div>
 @endsection
+
+
