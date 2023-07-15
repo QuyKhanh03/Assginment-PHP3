@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\CategoryController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,6 +31,7 @@ Route::prefix('admin')->group(function (){
         Route::post('update-attribute/{id}','update')->name('attributes.update');
         Route::get('delete-attribute/{id}','destroy')->name('attributes.destroy');
     });
+    Route::resource('category', CategoryController::class)->except('show');
 });
 
 Auth::routes();
@@ -37,4 +39,4 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Category
-Route::resource('categories', CategoryController::class);
+

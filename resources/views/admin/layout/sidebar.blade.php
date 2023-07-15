@@ -16,7 +16,7 @@
                 <ul aria-expanded="false">
                     <li><a href="{{ route('attributes.index') }}">Thuộc tính sản phẩm</a></li>
                     <li><a href="table-bootstrap-basic.html">Danh sách sản phẩm</a></li>
-                    <li><a href="table-bootstrap-basic.html">Danh mục sản phẩm</a></li>
+                    <li><a href="{{ route('category.index') }}">Danh mục sản phẩm</a></li>
                 </ul>
             </li>
 
