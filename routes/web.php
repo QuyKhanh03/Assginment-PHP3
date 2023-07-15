@@ -29,6 +29,7 @@ Route::prefix('admin')->group(function (){
         Route::get('edit-attribute/{id}','edit')->name('attributes.edit');
         Route::post('update-attribute/{id}','update')->name('attributes.update');
         Route::get('delete-attribute/{id}','destroy')->name('attributes.destroy');
+
     });
 });
 

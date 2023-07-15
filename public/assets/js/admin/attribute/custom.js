@@ -16,6 +16,7 @@ $(document).ready(function (){
     $('body').on('click','.btn-create',function(){
         $('#modal-attribute').modal('show')
         $('#form-attribute')[0].reset();
+        $('#values').empty();
         $('#id').val('');
         $('.modal-title').html('Thêm thuộc tính');
     })
@@ -58,12 +59,12 @@ $(document).ready(function (){
                if (result.isConfirmed) {
                    $.ajax({
                        url: '/admin/delete-attribute/' + id,
-                       type: 'GET',
+                       type: 'get',
                        dataType: 'json',
                           success: function (data) {
                               table.draw();
                               Swal.fire(
-                                  'Đã xóa!',
+                                  'Đã xóa thành công!',
                                   data.message,
                                   'success'
                               )

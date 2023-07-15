@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Attribute;
 use Yajra\DataTables\DataTables;
 use Illuminate\Http\Response;
+use App\Http\Requests\AttributeRequest;
 
 class AttributeController extends Controller
 {
@@ -16,7 +17,7 @@ class AttributeController extends Controller
     public function getAttribute(Request $request)
     {
         if ($request->ajax()) {
-            $data = Attribute::all();
+            $data = Attribute::query()->orderByDesc('id')->get();
             return DataTables::of($data)->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $btn = '<a href="javascript:void(0)" data-id="' . $row->id . '"  class=" btn btn-danger btn-delete">Xóa</a>';
