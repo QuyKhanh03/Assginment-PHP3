@@ -29,14 +29,16 @@
                                 <tbody>
                                 </tbody>
                                 <tfoot>
+                                @foreach ($companies as $company)
                                     <tr>
-                                        <th>#</th>
-                                        <th>Tên danh mục</th>
-                                        <th>Slug</th>
+                                        <th>{{ $company->id }}</th>
+                                        <th>{{ $company->name }}</th>
+                                        <th>{{ $company->slug }}</th>
                                         <th>Ngày tạo</th>
                                         <th>Ngày cập nhật</th>
                                         <th>Hành động</th>
                                     </tr>
+                                @endforeach
                                 </tfoot>
                             </table>
                         </div>
