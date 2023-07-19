@@ -14,8 +14,9 @@
                     <span class="nav-text">Quản lý sản phẩm</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('attributes.index') }}">Thuộc tính sản phẩm</a></li>
-                    <li><a href="table-bootstrap-basic.html">Danh sách sản phẩm</a></li>
+{{--                    <li><a href="{{ route('attributes.index') }}">Thuộc tính sản phẩm</a></li>--}}
+                    <li><a href="{{ route('brands.index') }}">Hãng</a></li>
+                    <li><a href="">Danh sách sản phẩm</a></li>
                     <li><a href="{{ route('category.index') }}">Danh mục sản phẩm</a></li>
                 </ul>
             </li>

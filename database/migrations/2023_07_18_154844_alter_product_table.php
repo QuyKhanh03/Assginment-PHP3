@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('attributes', function (Blueprint $table) {
-            $table->id();
-            $table->integer('quantity')->default(0);
-            $table->timestamps();
+        Schema::table('products', function (Blueprint $table) {
+            $table->foreignId('brand_id')->constrained();
+            $table->foreignId('category_id')->constrained();
         });
     }
 
@@ -23,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('attributes');
+        //
     }
 };
