@@ -4,9 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckLoginAdmin
+class CheckAdmin
 {
     /**
      * Handle an incoming request.
@@ -15,14 +16,15 @@ class CheckLoginAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!auth()->check()){
+        if(!auth()->check()) {
             return redirect()->route('login');
-        }else{
-            if(auth()->user()->role == 1){
+        }else {
+            if(auth()->user()->role_id == 1) {
                 return $next($request);
-            }else{
-                return redirect()->route('login')->with('error','Bạn không có quyền truy cập vào trang này');
+            }else {
+                return redirect()->route('homepage');
             }
         }
+
     }
 }
