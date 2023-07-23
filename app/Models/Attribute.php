@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Attribute extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'values'];
-    protected $casts = [
-        'values' => 'array'
-    ];
+    protected $fillable = ['size_name','product_id'];
+
 }

@@ -4,7 +4,7 @@
     Name                 : Tixia
     Author               : DexignZone
     Author Portfolio     : https://themeforest.net/user/dexignzone/portfolio
-    
+
 
 
     Table of Sass Contents
@@ -16,7 +16,7 @@
         _mixin
         _variable
 
-    2. bootstrap 
+    2. bootstrap
         -Here goes all official bootstrap scss files
 
     3. Global/Base
@@ -22525,7 +22525,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 [data-theme-version="dark"] .sidebar-right {
   /* background-color: darken($primary, 15%);
 		border-radius: 12px 0 0 12px;
-			
+
         .nav-tabs {
             background-color: lighten($d-bg, 3.2%);
             border-bottom: 1px solid $d-bg;
@@ -30215,12 +30215,12 @@ table.dataTable thead .sorting_desc:after {
   .event-list:hover .bgl-success:after {
     background: #21b731; }
 
-/* 
+/*
 .review-tab.nav-pills{
 	margin-bottom:0;
 	li{
 		display:inline-block;
-		
+
 		a.nav-link{
 			color: #6b6b6b;
 			background: #e9e9e9;
@@ -30245,7 +30245,7 @@ table.dataTable thead .sorting_desc:after {
 		&:last-child a.nav-link{
 			border-radius:0 $radius 0 0;
 		}
-		
+
 	}
 } */
 .form-switch .form-check-input {
@@ -34928,7 +34928,7 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 [data-theme-version="dark"] .sidebar-right {
   /* background-color: darken($primary, 15%);
 		border-radius: 12px 0 0 12px;
-			
+
         .nav-tabs {
             background-color: lighten($d-bg, 3.2%);
             border-bottom: 1px solid $d-bg;
@@ -34956,3 +34956,5 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
       color: #fff; }
 
 /*# sourceMappingURL=style.css.map */
+
+

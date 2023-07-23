@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Client\HomeController;
 use App\Http\Middleware\CheckAdmin;
 
 /*
@@ -17,25 +18,14 @@ use App\Http\Middleware\CheckAdmin;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-})->name('homepage');
+Route::get('/', [HomeController::class, 'index'])->name('client.home.index');
 
 
 Route::middleware('admin')->group(function (){
     Route::prefix('admin')->group(function (){
         // Dashboard
         Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard.index');
-        Route::controller(AttributeController::class)->group(function (){
-            Route::get('get-attributes','getAttribute');
-            Route::get('attributes','index')->name('attributes.index');
-            Route::post('add-attribute','store')->name('attributes.store');
-            Route::get('edit-attribute/{id}','edit')->name('attributes.edit');
-            Route::post('update-attribute/{id}','update')->name('attributes.update');
-            Route::get('delete-attribute/{id}','destroy')->name('attributes.destroy');
 
-        });
         Route::resource('category', CategoryController::class)->except('show');
         Route::controller(BrandController::class)->group(function (){
             Route::get('get-brands','getBrand')->name('brands.getBrands');
@@ -45,11 +35,19 @@ Route::middleware('admin')->group(function (){
             Route::post('update-brand/{id}','update')->name('brands.update');
             Route::get('delete-brand/{id}','destroy')->name('brands.destroy');
         });
+        Route::controller(ProductController::class)->group(function (){
+            Route::get('get-products','getProduct')->name('products.getProducts');
+            Route::get('products','index')->name('products.index');
+            Route::get('create-product','create')->name('products.create');
+            Route::post('create-product','store')->name('products.store');
+            Route::get('edit-product/{id}','edit')->name('products.edit');
+            Route::post('update-product/{id}','update')->name('products.update');
+            Route::get('delete-product/{id}','destroy')->name('products.destroy');
+        });
     });
 });
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// Category
 

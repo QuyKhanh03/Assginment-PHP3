@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('attributes', function (Blueprint $table) {
             $table->id();
-            $table->integer('quantity')->default(0);
+            $table->string('size_name')->nullable();
             $table->timestamps();
         });
     }
