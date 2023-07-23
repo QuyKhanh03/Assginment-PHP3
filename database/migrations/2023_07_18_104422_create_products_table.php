@@ -17,15 +17,13 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('image_primary')->nullable();
-            $table->json('image_secondary')->nullable();
             $table->integer('price');
             $table->text('short_description')->nullable();
             $table->text('detail_description')->nullable();
             $table->integer('sale_off')->nullable();
             $table->integer('status')->default(1);
-            $table->integer('featured')->default(1);
+            $table->integer('featured')->nullable()->default(1);
             $table->timestamps();
-
         });
     }
 

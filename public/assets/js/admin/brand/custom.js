@@ -16,6 +16,7 @@ $(document).ready(function () {
     $('body').on('click','.btn-create',function(){
         $('#modal-brand').modal('show')
         $('#form-brand')[0].reset();
+        $('.text-danger').remove();
         $('#id').val('');
         $('.modal-title').html('Thêm thương hiệu');
     })
@@ -23,6 +24,7 @@ $(document).ready(function () {
         $('#form-brand')[0].reset();
         $('#modal-brand').modal('show')
         $('.modal-title').html('Sửa thương hiệu');
+        $('.text-danger').remove();
         let id = $(this).attr('data-id');
         $.ajax({
             url : '/admin/edit-brand/'+id,
@@ -43,6 +45,7 @@ $(document).ready(function () {
         } else {
             url = "/admin/create-brand";
         }
+        $('.text-danger').remove();
         $.ajax({
             url: url,
             type: 'POST',
@@ -71,7 +74,6 @@ $(document).ready(function () {
                 })
                 toastr["error"]("Có lỗi xảy ra", "Thất bại");
             }
-
         })
 
     })

@@ -58,8 +58,7 @@
         ***********************************-->
     <div class="nav-header">
         <a href="{{ route('admin.dashboard.index') }}" class="brand-logo">
-            <h2 class="text-white">Admin</h2>
-            {{--            <img class="" style="width: 100px" src="{{ asset('templates/client/assets/img/logo-light.png') }}" alt="">--}}
+            <img class="" style="width: 120px"  src="{{ asset('templates/client/img/logo/fw_logo.png') }}" alt="">
         </a>
 
         <div class="nav-control">
@@ -82,7 +81,7 @@
                 <div class="collapse navbar-collapse justify-content-between">
                     <div class="header-left">
                         <div class="dashboard_bar">
-                             Admin
+                            <img src="{{ asset('templates/client/img/logo/fw_logo.png') }}" alt="">
                         </div>
                     </div>
 
@@ -403,14 +402,15 @@
 <script src="{{ asset('templates/admin/js/deznav-init.js') }}"></script>
 <script src="{{ asset('templates/admin/js/demo.js') }}"></script>
 <script src="{{ asset('templates/admin/js/styleSwitcher.js') }}"></script>
-
+<!-- Thay thế {YOUR_API_KEY} bằng khóa API của bạn từ trang web TinyMCE -->
+<script src="https://cdn.tiny.cloud/1/gwhdtg51gzp1y2m3vnlek784pp7o91u2h0wkpv67qsvqqyv9/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="{{ asset('assets/js/admin/config.js') }}"></script>
 @yield('script')
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </body>

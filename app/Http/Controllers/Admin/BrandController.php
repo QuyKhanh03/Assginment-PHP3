@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\BrandStoreRequest;
 class BrandController extends Controller
 {
     /**
@@ -49,9 +48,26 @@ class BrandController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-
-    public function store(BrandStoreRequest $request)
+    public function validationForm($request, $id = null)
     {
+        $rules = [
+            'name' => 'required|unique:brands,name',
+        ];
+
+        $messages = [
+            'name.required' => 'Tên thương hiệu không được để trống',
+            'name.unique' => 'Tên thương hiệu đã tồn tại',
+        ];
+
+        if ($id) {
+            $rules['name'] .= ',' . $id;
+        }
+
+        $request->validate($rules, $messages);
+    }
+    public function store(Request $request)
+    {
+        $this->validationForm($request);
        Brand::query()->create($request->all());
         return response()->json([
             'success' => true,
@@ -82,6 +98,7 @@ class BrandController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $this->validationForm($request, $id);
         $item = Brand::query()->findOrFail($id);
         $item->update($request->all());
         return response()->json([
