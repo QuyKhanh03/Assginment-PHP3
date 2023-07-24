@@ -18,7 +18,7 @@
                         <h3 class="col">Thêm mới sản phẩm</h3>
                     </div>
                     <div class="card-body">
-                        <form  id="form-product" enctype="multipart/form-data" method="post" >
+                        <form  id="form-product" action="{{ route('products.store') }}" enctype="multipart/form-data" method="post" >
                                 @csrf
                                 <div class="row">
                                     <div class="col">
@@ -136,7 +136,7 @@
                                         <div class="mb-3">
                                             <label for="values" class="form-label">Kích cỡ</label>
                                             <br>
-                                            <select class="form-control values"  id="values" multiple="multiple" name="size_name[]">
+                                            <select class="form-control values select_size"  id="values" multiple="multiple" name="size_name[]">
                                             </select>
                                         </div>
                                     </div>
@@ -148,10 +148,16 @@
                                     </div>
 
                                 </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Hủy</button>
-                                <button type="submit" class="btn btn-primary ">Lưu</button>
-                            </div>
+                                <div class="row">
+                                    <div class="col">
+
+                                    </div>
+                                    <div class="col">
+                                        <button type="submit" class="btn btn-primary float-end">Lưu</button>
+                                        <a href="{{ route('products.index') }}" class="btn btn-danger light float-end mr-5" >Hủy</a>
+
+                                    </div>
+                                </div>
                         </form>
                     </div>
                 </div>

@@ -1,8 +1,24 @@
 $(document).ready(function(){
-    $("select").select2({
+
+    $("select.select_size").select2({
         tags: true,
-        tokenSeparators: [',', ' ']
-    })
+        tokenSeparators: [',', ' '],
+    }).on('select2:selecting', function(e) {
+        // Khi người dùng đang thêm một giá trị mới
+        var value = e.params.args.data.id.trim().toLowerCase();
+
+        // Lấy danh sách các giá trị đã được chọn
+        var selectedValues = $(this).val() || [];
+        selectedValues = selectedValues.map(v => v.trim().toLowerCase());
+
+        // Kiểm tra xem giá trị mới có trùng với bất kỳ giá trị nào đã được chọn chưa
+        if (selectedValues.indexOf(value) > -1) {
+            // Nếu giá trị đã tồn tại, hủy bỏ việc thêm giá trị mới
+            e.preventDefault();
+            // Cập nhật lại Select2 để hiển thị đúng giá trị đã chọn
+            $(this).val(selectedValues).trigger('change.select2');
+        }
+    });
     var table = $('#table_product').DataTable({
         "processing": true,
         "serverSide": true,
@@ -17,7 +33,6 @@ $(document).ready(function(){
             { data: "category_id", name: "category_id" },
             { data: "brand_id", name: "brand_id" },
             { data: "action", name: "action" , orderable: false, searchable: false}
-
         ]
 
     });
@@ -54,7 +69,6 @@ $(document).ready(function(){
         })
     })
 })
-
 
 
 

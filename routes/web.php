@@ -41,7 +41,7 @@ Route::middleware('admin')->group(function (){
             Route::get('create-product','create')->name('products.create');
             Route::post('create-product','store')->name('products.store');
             Route::get('edit-product/{id}','edit')->name('products.edit');
-            Route::post('update-product/{id}','update')->name('products.update');
+            Route::put('update-product/{id}','update')->name('products.update');
             Route::get('delete-product/{id}','destroy')->name('products.destroy');
         });
     });

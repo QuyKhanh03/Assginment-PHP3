@@ -35,6 +35,10 @@ class ProductController extends Controller
                     $brand = Brand::find($row->brand_id);
                     return $brand->name;
                 })
+                ->addColumn('price', function ($row) {
+                    $price = number_format($row->price, 0, ',', '.');
+                    return $price . ' VNĐ';
+                })
                 ->addColumn('image', function ($row) {
                     $image = '<img src="' . asset('storage/images/products/' . $row->image_primary) . '" width="100px" height="100px">';
                     return $image;
@@ -46,14 +50,14 @@ class ProductController extends Controller
                                 </div>
                                 <div class="dropdown-menu dropdown-menu-right" style="border: none;background: none; padding-left: 15px">
                                     <div class="d-flex">
-                                        <a href="javascript:void(0);" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                                        <a href="/admin/edit-product/'.$row->id.'" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
                                         <a href="javascript:void(0);" data-id="'.$row->id.'" class="btn btn-danger shadow btn-xs sharp btn-delete"><i class="fa fa-trash"></i></a>
                                     </div>
                                 </div>
                             </div>';
                     return $btn;
                 })
-                ->rawColumns(['action', 'image', 'category_id', 'brand_id'])
+                ->rawColumns(['action', 'image', 'category_id', 'brand_id', 'price'])
                 ->make(true);
         }
     }
@@ -147,7 +151,7 @@ class ProductController extends Controller
             foreach ($images as $image) {
                 ProductImage::query()->create([
                     'product_id' => $id,
-                    'image' => $image->hashName()
+                    'image_path' => $image->hashName()
                 ]);
             }
         }
@@ -176,7 +180,12 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $product = Product::query()->findOrFail($id);
+        $product_images = ProductImage::query()->where('product_id', $id)->get();
+        $attributes = Attribute::query()->where('product_id', $id)->get();
+        $brands = Brand::all();
+        $categories = Category::all();
+        return view('admin.product.edit', compact('product', 'brands', 'categories', 'product_images', 'attributes'));
     }
 
     /**
@@ -184,7 +193,68 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $product = Product::query()->findOrFail($id);
+        $img_primary = "";
+        if($request->hasFile('image_primary')) {
+            $image_primary = $request->file('image_primary');
+            Storage::put('public/images/products', $image_primary);
+            $img_primary = $image_primary->hashName();
+        } else {
+            $img_primary = $request->image_primary_old;
+        }
+        $images = "";
+        if($request->hasFile('images')) {
+            $images = $request->file('images');
+            foreach ($images as $image) {
+                Storage::put('public/images/products', $image);
+            }
+        }else {
+            $images = $request->images_old;
+        }
+
+        $product->update([
+            'code_product' => $request->code_product,
+            'name' => $request->name,
+            'slug' => $this->createSlug($request->name),
+            'image_primary' => $img_primary,
+            'price' => $request->price,
+            'sale_off' => $request->sale_off,
+            'short_description' => $request->short_description,
+            'detail_description' => $request->detail_description,
+            'status' => $request->status,
+            'featured' => $request->featured,
+            'category_id' => $request->category_id,
+            'brand_id' => $request->brand_id,
+        ]);
+        if($request->has('images')) {
+            foreach ($images as $image) {
+                ProductImage::query()->create([
+                    'product_id' => $id,
+                    'image_path' => $image->hashName()
+                ]);
+            }
+        }else{
+            $images = $request->images_old;
+        }
+        $size_name_old = Attribute::query()->where('product_id', $id)->get();
+        $size_name = $request->size_name;
+        if($request->has('size_name')) {
+            foreach ($size_name_old as $size) {
+                $size->delete();
+            }
+            foreach ($size_name as $size) {
+                Attribute::query()->create([
+                    'product_id' => $id,
+                    'size_name' => $size
+                ]);
+            }
+        }
+
+
+
+        return redirect()->route('products.index')->with('success', 'Cập nhật sản phẩm thành công');
+
+
     }
 
     /**
