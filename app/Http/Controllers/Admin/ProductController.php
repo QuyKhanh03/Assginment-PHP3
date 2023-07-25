@@ -97,7 +97,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function validationProduct($request,$id =null){
+    public function validationProduct(Request $request,$id =null){
         $rules = [
             'name' => 'required',
             'code_product' => 'required|unique:products,code_product',

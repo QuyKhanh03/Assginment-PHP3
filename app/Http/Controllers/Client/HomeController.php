@@ -4,6 +4,11 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\ProductImage;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\Brand;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -12,8 +17,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+
         return view('client.home.index');
     }
+
 
     /**
      * Show the form for creating a new resource.
