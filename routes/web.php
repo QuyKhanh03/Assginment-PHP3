@@ -49,5 +49,7 @@ Route::middleware('admin')->group(function (){
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
+Route::get('category/{slug}', [App\Http\Controllers\client\CategoryController::class, 'getProductBySlug'])->name('client.category.getProductBySlug');
+Route::get('brand/{id}', [App\Http\Controllers\client\CategoryController::class, 'getProductById'])->name('client.brand.getProductBySlug');
+Route::get('/products', [App\Http\Controllers\client\ProductController::class, 'index'])->name('client.product.index');
+Route::get('/product/{id}', [App\Http\Controllers\client\ProductController::class, 'show'])->name('client.product.show');

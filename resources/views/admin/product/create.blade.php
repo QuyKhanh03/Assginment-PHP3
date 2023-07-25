@@ -85,7 +85,7 @@
                                     <div class="col">
                                         <label for="category_id" class="form-label">Danh mục</label>
                                         <select class="form-select category_id" id="category_id" aria-label="Default select example" name="category_id">
-                                            <option selected>Chọn danh mục</option>
+                                            <option selected value="">Chọn danh mục</option>
                                             @foreach($categories as $category)
                                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                                             @endforeach
@@ -97,7 +97,7 @@
                                     <div class="col">
                                         <label for="brand_id" class="form-label">Thương hiệu</label>
                                         <select class="form-select brand_id" aria-label="Default select example" id="brand_id" name="brand_id">
-                                            <option selected>Chọn thương hiệu</option>
+                                            <option selected value="">Chọn thương hiệu</option>
                                             @foreach($brands as $brand)
                                                 <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                                             @endforeach

@@ -121,13 +121,13 @@
                                 <div class="col">
                                     <div class="mb-3 mt-1">
                                         <label for="short_description" class="form-label">Mô tả ngắn</label>
-                                        <textarea class="form-control short_description textarea_des" id="short_description" rows="3" name="short_description"></textarea>
+                                        <textarea class="form-control short_description textarea_des" id="short_description" rows="3" name="short_description">{{ $product->short_description }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="mb-3 mt-1">
                                         <label for="detail_description" class="form-label">Mô tả chi tiết</label>
-                                        <textarea class="form-control detail_description textarea_des" id="detail_description" rows="3" name="detail_description"></textarea>
+                                        <textarea class="form-control detail_description textarea_des" id="detail_description" rows="3" name="detail_description">{{ $product->detail_description }}</textarea>
                                     </div>
                                 </div>
                             </div>
