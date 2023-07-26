@@ -56,6 +56,7 @@
                     </div>
                 </div>
                 <div class="col-lg-5">
+
                     <div class="shop-details-content">
                         <h3 class="title">{{ $product->name }}</h3>
                         <div class="rating">
@@ -66,29 +67,37 @@
                             <i class="fas fa-star"></i>
                         </div>
                         <p class="style-name">Mã sản phẩm : {{ $product->code_product }}</p>
-                        <div class="price">Giá tiền : {{ number_format($product->price, 0, ',', '.') }} VNĐ</div>
+                        @if($product->sale_off > 0)
+                            <p class="price"><del>{{ number_format($product->price,0,',','.') }} VNĐ</del> {{ number_format($product->price - ($product->price * $product->sale_off / 100), 0, ',', '.') }} VNĐ</p>
+                        @else
+                            <p class="price">{{ number_format($product->price, 0, ',', '.') }} VNĐ</p>
+                        @endif
                         <div class="product-details-info">
-                            <div class="sidebar-product-size mb-30">
-                                <h4 class="widget-title">Kích cỡ sản phẩm</h4>
-                                <select class="nice-select form-select" name="size_name">
-                                    @foreach($attributes as $attribute)
-                                        <option value="{{ $attribute->size_name }}">{{ $attribute->size_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            @if(count($attributes) > 0)
+                                <div class="sidebar-product-size mb-30">
+                                    <h4 class="widget-title">Kích cỡ sản phẩm</h4>
+                                    <select class="nice-select form-select" name="size_name">
+                                        <option value="">Chọn kích cỡ</option>
+                                            @foreach($attributes as $attribute)
+                                                <option class="size_name" value="{{ $attribute->size_name }}">{{ $attribute->size_name }}</option>
+                                            @endforeach
+                                    </select>
+                                </div>
+                            @endif
 
                         </div>
-                        <div class="perched-info">
+                        <div class="perched-info" >
                             <div class="cart-plus-minus">
-                                <form action="#" class="num-block">
-                                    <input type="text" class="in-num" value="1" readonly="">
+                                <form  class="num-block" id="form-cart">
+                                    <input  type="text" class="in-num qty" value="1" readonly="">
                                     <div class="qtybutton-box">
                                         <span class="plus"><img src="{{ asset('templates/client/img/icon/plus.png') }}" alt=""></span>
                                         <span class="minus dis"><img src="{{ asset('templates/client/img/icon/minus.png') }}" alt=""></span>
                                     </div>
                                 </form>
                             </div>
-                            <a href="#" class="btn">add to cart</a>
+
+                            <a href="javaScript:void(0)" data-id="{{ $product->id }}" class="btn add-cart">Thêm vào giỏ hàng</a>
                             <div class="wishlist-compare">
                                 <ul>
                                     <li><a href="#"><i class="far fa-heart"></i> Add to Wishlist</a></li>
@@ -107,6 +116,7 @@
                             </ul>
                         </div>
                     </div>
+
                 </div>
             </div>
             <div class="row">
@@ -168,87 +178,46 @@
                     </div>
                 </div>
             </div>
-{{--            <div class="related-product-wrap">--}}
-{{--                <div class="row">--}}
-{{--                    <div class="col-12">--}}
-{{--                        <div class="related-product-title">--}}
-{{--                            <h4 class="title">You May Also Like...</h4>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <div class="row related-product-active">--}}
-{{--                    <div class="col-xl-3">--}}
-{{--                        <div class="new-arrival-item text-center">--}}
-{{--                            <div class="thumb mb-25">--}}
-{{--                                <a href="shop-details.html"><img src="img/product/n_arrival_product01.jpg" alt=""></a>--}}
-{{--                                <div class="product-overlay-action">--}}
-{{--                                    <ul>--}}
-{{--                                        <li><a href="cart.html"><i class="far fa-heart"></i></a></li>--}}
-{{--                                        <li><a href="shop-details.html"><i class="far fa-eye"></i></a></li>--}}
-{{--                                    </ul>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="content">--}}
-{{--                                <h5><a href="shop-details.html">Bomber in Cotton</a></h5>--}}
-{{--                                <span class="price">$37.00</span>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-xl-3">--}}
-{{--                        <div class="new-arrival-item text-center">--}}
-{{--                            <div class="thumb mb-25">--}}
-{{--                                <div class="discount-tag">- 20%</div>--}}
-{{--                                <a href="shop-details.html"><img src="img/product/n_arrival_product02.jpg" alt=""></a>--}}
-{{--                                <div class="product-overlay-action">--}}
-{{--                                    <ul>--}}
-{{--                                        <li><a href="cart.html"><i class="far fa-heart"></i></a></li>--}}
-{{--                                        <li><a href="shop-details.html"><i class="far fa-eye"></i></a></li>--}}
-{{--                                    </ul>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="content">--}}
-{{--                                <h5><a href="shop-details.html">Travelling Bags</a></h5>--}}
-{{--                                <span class="price">$25.00</span>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-xl-3">--}}
-{{--                        <div class="new-arrival-item text-center">--}}
-{{--                            <div class="thumb mb-25">--}}
-{{--                                <a href="shop-details.html"><img src="img/product/n_arrival_product03.jpg" alt=""></a>--}}
-{{--                                <div class="product-overlay-action">--}}
-{{--                                    <ul>--}}
-{{--                                        <li><a href="cart.html"><i class="far fa-heart"></i></a></li>--}}
-{{--                                        <li><a href="shop-details.html"><i class="far fa-eye"></i></a></li>--}}
-{{--                                    </ul>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="content">--}}
-{{--                                <h5><a href="shop-details.html">Exclusive Handbags</a></h5>--}}
-{{--                                <span class="price">$19.50</span>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-xl-3">--}}
-{{--                        <div class="new-arrival-item text-center">--}}
-{{--                            <div class="thumb mb-25">--}}
-{{--                                <div class="discount-tag new">New</div>--}}
-{{--                                <a href="shop-details.html"><img src="img/product/n_arrival_product04.jpg" alt=""></a>--}}
-{{--                                <div class="product-overlay-action">--}}
-{{--                                    <ul>--}}
-{{--                                        <li><a href="cart.html"><i class="far fa-heart"></i></a></li>--}}
-{{--                                        <li><a href="shop-details.html"><i class="far fa-eye"></i></a></li>--}}
-{{--                                    </ul>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="content">--}}
-{{--                                <h5><a href="shop-details.html">Women Shoes</a></h5>--}}
-{{--                                <span class="price">$12.90</span>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
+
+            <div class="related-product-wrap">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="related-product-title">
+                            <h4 class="title">Sản phẩm liên quan...</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row related-product-active">
+                    @foreach($alsoLike as $value)
+                    <div class="col-xl-3" style="width: 325px;height: 468px">
+                        <div class="new-arrival-item text-center">
+                            <div class="thumb mb-25" style="width: 325px;height: 370px">
+                                @if($value->sale_off > 0)
+                                    <div class="discount-tag new">{{ $value->sale_off }}%</div>
+                                @else
+                                    <div class="discount-tag new">New</div>
+                                @endif
+                                <a style="width: 325px;height: 100%" href="{{ route('client.product.show',$value->id) }}"><img style="width: 320px;height: 100%" src="{{ asset('storage/images/products/'.$value->image_primary) }}" alt=""></a>
+                                <div class="product-overlay-action">
+                                    <ul>
+                                        <li><a href=""><i class="far fa-heart"></i></a></li>
+                                        <li><a href="{{ route('client.product.show',$value->id) }}"><i class="far fa-eye"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="content">
+                                <h5><a href="{{ route('client.product.show',$value->id) }}">{{ $value->name }}</a></h5>
+                                @if($product->sale_off > 0)
+                                    <p class="price"><del>{{ number_format($product->price,0,',','.') }} VNĐ</del> {{ number_format($product->price - ($product->price * $product->sale_off / 100), 0, ',', '.') }} VNĐ</p>
+                                @else
+                                    <p class="price">{{ number_format($product->price, 0, ',', '.') }} VNĐ</p>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
     </section>
     <!-- shop-details-area-end -->

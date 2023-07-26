@@ -14,17 +14,20 @@
                             <div class="navbar-wrap main-menu d-none d-lg-flex">
                                 <ul class="navigation">
                                     <li class="active menu-item-has-children has--mega--menu"><a href="{{ route('client.home.index') }}">Trang Chủ</a></li>
+                                    @php
+                                        $categories_header = App\Http\Controllers\Client\CategoryController::getCategory();
+                                        $brands_header = App\Http\Controllers\Client\CategoryController::getBrand();
+                                    @endphp
+                                    @if($categories_header)
+                                        @foreach($categories_header as $category)
+                                            <li class="active menu-item-has-children has--mega--menu"><a href="{{ route('client.category.getProductBySlug',$category->slug) }}">{{ $category->name }}</a></li>
+                                        @endforeach
+
                                     <li class="menu-item-has-children"><a href="{{ route('client.product.index') }}">Sản Phẩm</a>
-                                        @php
-                                            $categories_header = App\Http\Controllers\Client\CategoryController::getCategory();
-                                            $brands_header = App\Http\Controllers\Client\CategoryController::getBrand();
-                                        @endphp
+
 
                                         <ul class="submenu">
-                                            @if($categories_header)
-                                            @foreach($categories_header as $category)
-                                                <li><a href="{{ route('client.category.getProductBySlug',$category->slug) }}">{{ $category->name }}</a></li>
-                                            @endforeach
+
                                             @endif
                                             @if($brands_header)
                                                 @foreach($brands_header as $brand)
@@ -33,15 +36,16 @@
                                             @endif
                                         </ul>
 
+
                                     </li>
-                                    <li><a href="about-us.html">Về Chúng tôi</a></li>
+                                    <li><a href="about-us.html">Hướng dẫn mua hàng</a></li>
 
                                     <li><a href="contact.html">Liên hệ</a></li>
                                 </ul>
                             </div>
                             <div class="header-action d-none d-md-block">
                                 <ul>
-                                    <li class="header-search"><a href="#" data-toggle="modal" data-target="#search-modal"><i class="flaticon-search"></i></a></li>
+                                    <li class="header-search"><a href="#" data-toggle="modal" data-target="#search-modal" id="btn-search" ><i class="flaticon-search"></i></a></li>
                                     <li class="header-shop-cart"><a href="#"><i class="flaticon-shopping-bag"></i><span>0</span></a>
                                         <ul class="minicart">
                                             <li class="d-flex align-items-start">
@@ -150,10 +154,11 @@
     <div class="modal fade" id="search-modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form>
-                    <input type="text" placeholder="Search here...">
+                <form >
+                    <input type="text" placeholder="Search here..." id="search">
                     <button><i class="flaticon-search"></i></button>
                 </form>
+                <ul id="search-results" class="mt-5" style="height: 400px"></ul>
             </div>
         </div>
     </div>

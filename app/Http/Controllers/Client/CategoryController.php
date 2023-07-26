@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -23,16 +24,34 @@ class CategoryController extends Controller
         return $categories;
     }
 
-   public function getProductBySlug(string $slug)
+   public function getProductBySlug(Request $request, string $slug)
     {
+        if($request->filter) {
+            $filter = $request->filter;
+            if($filter == 'price_asc') {
+                $products = Product::query()->orderBy('price', 'asc')->paginate(12);
+
+            } else if($filter == 'price_desc') {
+                $products = Product::query()->orderBy('price', 'desc')->paginate(12);
+            } else if($filter == '') {
+                $products = DB::table('products')
+                    ->join('categories', 'products.category_id', '=', 'categories.id')
+                    ->join('brands', 'products.brand_id', '=', 'brands.id')
+                    ->select('products.*', 'categories.name as category_name', 'brands.name as brand_name')
+                    ->where('categories.slug', $slug)
+                    ->paginate(8);
+            }
+        }else {
+            $products = DB::table('products')
+                ->join('categories', 'products.category_id', '=', 'categories.id')
+                ->join('brands', 'products.brand_id', '=', 'brands.id')
+                ->select('products.*', 'categories.name as category_name', 'brands.name as brand_name')
+                ->where('categories.slug', $slug)
+                ->paginate(8);
+        }
 
         $categories = Category::all();
-        $products = DB::table('products')
-            ->join('categories', 'products.category_id', '=', 'categories.id')
-            ->join('brands', 'products.brand_id', '=', 'brands.id')
-            ->select('products.*', 'categories.name as category_name', 'brands.name as brand_name')
-            ->where('categories.slug', $slug)
-            ->paginate(8);
+
         return view('client.category.index', compact('products', 'categories'));
     }
     //get product by id brand
@@ -41,15 +60,34 @@ class CategoryController extends Controller
         $brands = Brand::all();
         return $brands;
     }
-    public function getProductById(string $id)
+    public function getProductById(Request $request,string $id)
     {
         $categories = Category::all();
-        $products = DB::table('products')
-            ->join('categories', 'products.category_id', '=', 'categories.id')
-            ->join('brands', 'products.brand_id', '=', 'brands.id')
-            ->select('products.*', 'categories.name as category_name', 'brands.name as brand_name')
-            ->where('brands.id', $id)
-            ->paginate(8);
+        if($request->filter) {
+            $filter = $request->filter;
+            if($filter == 'price_asc') {
+                $products = Product::query()->orderBy('price', 'asc')->paginate(8);
+
+            } else if($filter == 'price_desc') {
+                $products = Product::query()->orderBy('price', 'desc')->paginate(8);
+            } else if($filter == '') {
+                $products = DB::table('products')
+                    ->join('categories', 'products.category_id', '=', 'categories.id')
+                    ->join('brands', 'products.brand_id', '=', 'brands.id')
+                    ->select('products.*', 'categories.name as category_name', 'brands.name as brand_name')
+                ->where('brands.id', $id)
+                    ->paginate(8);
+            }
+        }else {
+            $products = DB::table('products')
+                ->join('categories', 'products.category_id', '=', 'categories.id')
+                ->join('brands', 'products.brand_id', '=', 'brands.id')
+                ->select('products.*', 'categories.name as category_name', 'brands.name as brand_name')
+                ->where('brands.id', $id)
+                ->paginate(8);
+        }
+
+
         return view('client.category.index', compact('products', 'categories'));
     }
 
