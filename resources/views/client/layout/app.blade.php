@@ -296,6 +296,8 @@
 <script src="{{ asset('templates/client/js/nav-tool.js') }}"></script>
 <script src="{{ asset('templates/client/js/plugins.js') }}"></script>
 <script src="{{ asset('templates/client/js/main.js') }}"></script>
+<script src="{{ asset('assets/js/client/cart.js') }}"></script>
+<script src="{{ asset('assets/js/client/custom.js') }}"></script>
 </body>
 
 

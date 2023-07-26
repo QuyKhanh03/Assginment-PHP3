@@ -53,3 +53,5 @@ Route::get('category/{slug}', [App\Http\Controllers\client\CategoryController::c
 Route::get('brand/{id}', [App\Http\Controllers\client\CategoryController::class, 'getProductById'])->name('client.brand.getProductBySlug');
 Route::get('/products', [App\Http\Controllers\client\ProductController::class, 'index'])->name('client.product.index');
 Route::get('/product/{id}', [App\Http\Controllers\client\ProductController::class, 'show'])->name('client.product.show');
+Route::get('/search', [App\Http\Controllers\client\SearchController::class, 'search'])->name('client.search.search');
+

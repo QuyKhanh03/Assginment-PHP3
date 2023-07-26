@@ -116,11 +116,15 @@
                     </div>
                     <div class="col-md-6">
                         <div class="shop-top-right">
-                            <form action="#">
-                                <select name="select">
-                                    <option selected value="0">Sắp xếp theo mặc định</option>
-                                    <option value="1">Sắp xếp theo giá tăng dần</option>
-                                    <option value="2">Sắp xếp theo giá giảm dần</option>
+                            <form class="form-filter">
+                                <select name="filter" class="filter">
+                                    <option value="">Sắp xếp theo mặc định</option>
+                                    <option @if(isset($_GET['filter']) && $_GET['filter'] == 'price_desc')
+                                                selected
+                                            @endif value="price_desc">Sắp xếp theo giá giảm dần</option>
+                                    <option @if(isset($_GET['filter']) && $_GET['filter'] == 'price_asc')
+                                                selected
+                                            @endif value="price_asc">Sắp xếp theo giá tăng dần</option>
                                 </select>
                             </form>
                         </div>
@@ -134,16 +138,16 @@
                         <div class="col-xl-3 col-lg-4 col-sm-6">
                             <div class="new-arrival-item text-center mb-50">
                                 <div class="thumb mb-25">
-                                    <a href="shop-details.html"><img style="width: 270px;height: 235px" src="{{ asset('storage/images/products/'.$product->image_primary) }}" alt=""></a>
+                                    <a href="{{ route('client.product.show',$product->id) }}"><img style="width: 270px;height: 235px" src="{{ asset('storage/images/products/'.$product->image_primary) }}" alt=""></a>
                                     <div class="product-overlay-action">
                                         <ul>
                                             <li><a href="cart.html"><i class="far fa-heart"></i></a></li>
-                                            <li><a href="shop-details.html"><i class="far fa-eye"></i></a></li>
+                                            <li><a href="{{ route('client.product.show',$product->id) }}"><i class="far fa-eye"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="content">
-                                    <h5><a href="shop-details.html">{{ $product->name }}</a></h5>
+                                    <h5><a href="{{ route('client.product.show',$product->id) }}">{{ $product->name }}</a></h5>
                                     <span class="price">{{ number_format($product->price, 0, ',', '.') }} VNĐ</span>
                                 </div>
                             </div>

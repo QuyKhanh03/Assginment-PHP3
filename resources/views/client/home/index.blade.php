@@ -195,14 +195,18 @@
                                 <div class="col" style="width: 360px;height: 470px">
                                     <div class="features-product-item" style="height: 100%;">
                                         <div class="features-product-thumb" style="height: 322px">
-                                            <div class="discount-tag">-20%</div>
+                                            @if($product->sale_off > 0)
+                                                <div class="discount-tag">-{{ $product->sale_off }}%</div>
+                                            @else
+                                                <div class="discount-tag" style="background-color: #00c853">New</div>
+                                            @endif
                                             <a href="{{ route('client.product.show',$product->id) }}">
                                                 <img style="width: 215px;height: 100%" src="{{ asset('storage/images/products/'.$product->image_primary) }}" alt="">
                                             </a>
                                             <div class="product-overlay-action">
                                                 <ul>
-                                                    <li><a href="cart.html"><i class="far fa-heart"></i></a></li>
-                                                    <li><a href="shop-details.html"><i class="far fa-eye"></i></a></li>
+                                                    <li><a href=""><i class="far fa-heart"></i></a></li>
+                                                    <li><a href="{{ route('client.product.show',$product->id) }}"><i class="far fa-eye"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -214,11 +218,17 @@
                                                 <i class="far fa-star"></i>
                                                 <i class="far fa-star"></i>
                                             </div>
-                                            <h5><a href="shop-details.html">{{ $product->name }}</a></h5>
-                                            <p class="price">{{ number_format($product->price, 0, ',', '.') }} VNĐ</p>
+                                            <h5><a href="{{ route('client.product.show',$product->id) }}">{{ $product->name }}</a></h5>
+                                            @if($product->sale_off > 0)
+                                                <p class="price"><del>{{ number_format($product->price,0,',','.') }} VNĐ</del> {{ number_format($product->price - ($product->price * $product->sale_off / 100), 0, ',', '.') }} VNĐ</p>
+
+                                            @else
+                                                <p class="price">{{ number_format($product->price, 0, ',', '.') }} VNĐ</p>
+
+                                            @endif
 
                                         </div>
-                                        <div class="features-product-cart"><a href="cart.html">Thêm vào giỏ hàng</a></div>
+                                        <div class="features-product-cart"><a href="{{ route('client.product.show',$product->id) }}">Xem chi tiết</a></div>
                                     </div>
                                 </div>
                                 @endforeach
@@ -235,42 +245,42 @@
     <!-- trending-product-area-end -->
 
     <!-- new-arrival-area -->
-    <section class="new-arrival-area pt-95 pb-45">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-4 col-lg-6">
-                    <div class="section-title title-style-two text-center mb-45">
-                        <h3 class="title">New Arrival Collection</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <div class="new-arrival-nav mb-35">
-                        <button class="active" data-filter="*">Best Sellers</button>
-                        <button class="" data-filter=".cat-one">New Products</button>
-                        <button class="" data-filter=".cat-two">Sales Products</button>
-                    </div>
-                </div>
-            </div>
-            <div class="row new-arrival-active">
-                <div class="col-xl-3 col-lg-4 col-sm-6 grid-item grid-sizer cat-two">
-                    <div class="new-arrival-item text-center mb-50">
-                        <div class="thumb mb-25">
+{{--    <section class="new-arrival-area pt-95 pb-45">--}}
+{{--        <div class="container">--}}
+{{--            <div class="row justify-content-center">--}}
+{{--                <div class="col-xl-4 col-lg-6">--}}
+{{--                    <div class="section-title title-style-two text-center mb-45">--}}
+{{--                        <h3 class="title">New Arrival Collection</h3>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <div class="row justify-content-center">--}}
+{{--                <div class="col-lg-6">--}}
+{{--                    <div class="new-arrival-nav mb-35">--}}
+{{--                        <button class="active" data-filter="*">Best Sellers</button>--}}
+{{--                        <button class="" data-filter=".cat-one">New Products</button>--}}
+{{--                        <button class="" data-filter=".cat-two">Sales Products</button>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <div class="row new-arrival-active">--}}
+{{--                <div class="col-xl-3 col-lg-4 col-sm-6 grid-item grid-sizer cat-two">--}}
+{{--                    <div class="new-arrival-item text-center mb-50">--}}
+{{--                        <div class="thumb mb-25">--}}
 {{--                            <a href="shop-details.html"><img src="{{ asset('templates/client/img/product/shoes_arrival_product01.jpg') }}" alt=""></a>--}}
-                            <div class="product-overlay-action">
-                                <ul>
-                                    <li><a href="cart.html"><i class="far fa-heart"></i></a></li>
-                                    <li><a href="shop-details.html"><i class="far fa-eye"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="content">
-                            <h5><a href="shop-details.html">Athletes Shoes</a></h5>
-                            <span class="price">$37.00</span>
-                        </div>
-                    </div>
-                </div>
+{{--                            <div class="product-overlay-action">--}}
+{{--                                <ul>--}}
+{{--                                    <li><a href="cart.html"><i class="far fa-heart"></i></a></li>--}}
+{{--                                    <li><a href="shop-details.html"><i class="far fa-eye"></i></a></li>--}}
+{{--                                </ul>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="content">--}}
+{{--                            <h5><a href="shop-details.html">Athletes Shoes</a></h5>--}}
+{{--                            <span class="price">$37.00</span>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 {{--                <div class="col-xl-3 col-lg-4 col-sm-6 grid-item grid-sizer cat-one">--}}
 {{--                    <div class="new-arrival-item text-center mb-50">--}}
 {{--                        <div class="thumb mb-25">--}}
@@ -395,9 +405,9 @@
 {{--                        </div>--}}
 {{--                    </div>--}}
 {{--                </div>--}}
-            </div>
-        </div>
-    </section>
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </section>--}}
     <!-- new-arrival-area-end -->
 
 
