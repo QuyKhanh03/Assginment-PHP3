@@ -22,7 +22,7 @@ class CheckAdmin
             if(auth()->user()->role_id == 1) {
                 return $next($request);
             }else {
-                return redirect()->route('homepage');
+                return redirect()->route('home');
             }
         }
 

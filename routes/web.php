@@ -27,6 +27,9 @@ Route::middleware('admin')->group(function (){
         Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard.index');
 
         Route::resource('category', CategoryController::class)->except('show');
+
+        Route::resource('users', UserController::class)->except('show');
+
         Route::controller(BrandController::class)->group(function (){
             Route::get('get-brands','getBrand')->name('brands.getBrands');
             Route::get('brands','index')->name('brands.index');

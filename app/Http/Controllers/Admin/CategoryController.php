@@ -52,26 +52,13 @@ class CategoryController extends Controller
         return redirect()->route('category.index');
 
     }
-
-    /**
-     * Display the specified resource.
-     */
-//    public function show(string $id)
-//    {
-//        //
-//    }
-//cái func này mình k dùng ông ạ
-
-    /**
-     * Show the form for editing the specified resource.
-     */
+//
     public function edit(string $id)
     {
 //        $category = Category::query()->findOrFail($id);
         $category = Category::query()->findOrFail($id);
         return view(self::OBJECT . self::DOT . __FUNCTION__, compact('category'));
-        //view ra form sửa truyền biến category vào hàm compact giống php2 nha
-//        return view()
+
     }
 
     /**
@@ -87,7 +74,7 @@ class CategoryController extends Controller
             )
         ]);
         return redirect()->route('category.index');
-//        mấy cái hàm này ông chịu khó đọc lại document là rõ ngay nó có mấy kiểu cơ
+/
     }
 
     /**
@@ -97,8 +84,7 @@ class CategoryController extends Controller
     {
         Category::destroy($id);
         return redirect()->route('category.index');
-        //return index
-        //thế là hòm hòm rồi đó ông cố gắng trong ngày mai xong nhé.ok ô
+
     }
 
     //Slug
